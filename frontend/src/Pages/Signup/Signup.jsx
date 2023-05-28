@@ -9,7 +9,27 @@ const Signup = () => {
     const [confirmPassword, updateConfirmPassword] = useState(null);
 
     const onButtonClick = () => {
-        console.log(name,email,password,confirmPassword);
+        if(password === confirmPassword){
+            postData();
+        }else{
+            window.alert("Two Passwords not matching");
+        }
+    }
+
+    const postData = async () => {
+        const formData = {
+            name : name,
+            email : email,
+            password : password,
+        }
+
+        try{
+            const response = await axios.post("localhost:8080/register/teacher", formData);
+            const data = await response.json();
+            console.log(data);
+        }catch(error){
+            console.log(error);
+        }
     }
     
     return (
