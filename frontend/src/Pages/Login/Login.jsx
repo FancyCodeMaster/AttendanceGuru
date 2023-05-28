@@ -1,16 +1,33 @@
 import React, {useState} from 'react'
+import axios from 'axios';
 import './Login.css'
 import {
     Link,
   } from "react-router-dom";
 
 const Login = () => {
-    const [email, updateEmail] = useState(null);
-    const [password, updatePassword] = useState(null);
+  const [email, updateEmail] = useState(null);
+  const [password, updatePassword] = useState(null);
 
-    const onButtonClick = () => {
-        console.log(email,password);
-    }
+  const onButtonClick = (e) => {
+    e.preventDefault();
+    postData();
+  }
+
+  const postData = async () => {
+      const formData = {
+          email : email,
+          password : password,
+      }
+
+      try{
+          const response = await axios.post("http://localhost:8080/signIn", formData);
+          const data = await response.data;
+          console.log(data);
+      }catch(error){
+          console.log(error);
+      }
+  }
     
   return (
     <div className='login'>
