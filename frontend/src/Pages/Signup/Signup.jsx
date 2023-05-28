@@ -26,7 +26,7 @@ const Signup = () => {
         }
 
         try{
-            const response = await axios.post("localhost:8080/register/teacher", formData);
+            const response = await axios.post("http://localhost:8080/register/teacher", formData);
             const data = await response.json();
             console.log(data);
         }catch(error){
