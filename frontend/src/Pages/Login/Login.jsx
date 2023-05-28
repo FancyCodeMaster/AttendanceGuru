@@ -1,25 +1,30 @@
-import Button from '../../Components/Button/Button';
-import InputBox from '../../Components/InputBox/InputBox';
+import React, {useState} from 'react'
+import './Login.css'
+import {
+    Link,
+  } from "react-router-dom";
 
 const Login = () => {
-    return(
-        <div class='flex flex-row'>
-            <div
-                class='backgroundImage h-screen w-screen overflow-hidden bg-cover bg-center bg-no-repeat'>
-            </div>
-            <div class='h-screen w-screen p-10'>
-                <h2 class='text-4xl underline pb-4'>Login</h2>
-                {/* username and password box */}
-                <div>
-                    <p>Username</p>
-                    <InputBox placeholder="Username" />
-                    <p>Password</p>
-                    <InputBox placeholder="Password" />
-                    <div><Button text="Login" /></div>
-                </div>
-            </div>
-        </div>
-    );
+    const [email, updateEmail] = useState(null);
+    const [password, updatePassword] = useState(null);
+
+    const onButtonClick = () => {
+        console.log(email,password);
+    }
+    
+  return (
+    <div className='login'>
+      <div>
+        <h1>Login</h1>
+        <p>Email</p>
+        <input type="email" placeholder='youremail@ncit.edu.np' onChange={(el) => updateEmail(el.target.value)}></input>
+        <p>Password</p>
+        <input type="password" placeholder='Password' onChange={(el) => updatePassword(el.target.value)}></input>
+        <p>Not a user, <span><Link to="/signup">Sign Up</Link></span></p>
+        <button onClick={onButtonClick}>Login</button>
+      </div>
+    </div>
+  )
 }
 
-export default Login;
+export default Login
