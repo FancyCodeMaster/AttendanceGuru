@@ -9,6 +9,7 @@ import {
 import ErrorPage from './Pages/ErrorPage/ErrorPage.jsx';
 import Signup from './Pages/Signup/Signup.jsx';
 import Login from './Pages/Login/Login.jsx';
+import Dashboard from './Pages/Dashboard/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path : '/login',
     element : <Login />,
+  },
+  {
+    path : '/dashboard',
+    element : <Dashboard />
   },
   {
     path : "*",
