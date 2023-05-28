@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios';
 import './Signup.css'
 import { Link } from 'react-router-dom'
 
@@ -8,8 +9,9 @@ const Signup = () => {
     const [password, updatePassword] = useState(null);
     const [confirmPassword, updateConfirmPassword] = useState(null);
 
-    const onButtonClick = () => {
+    const onButtonClick = (e) => {
         if(password === confirmPassword){
+            e.preventDefault();
             postData();
         }else{
             window.alert("Two Passwords not matching");
