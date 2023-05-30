@@ -11,6 +11,6 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 public class LoginDetails {
 
-    private String username;
+    private String email;
     private String password;
 }
