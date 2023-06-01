@@ -3,6 +3,7 @@ package com.arun.ag_backend.Controller;
 import com.arun.ag_backend.Dto.StudentDto;
 import com.arun.ag_backend.Dto.TeacherDTO;
 import com.arun.ag_backend.Entities.LoginDetails;
+import com.arun.ag_backend.JSON.CustomResponse;
 import com.arun.ag_backend.Services.StudentService;
 import com.arun.ag_backend.Services.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
 public class Login_SignUp {
 
@@ -33,29 +32,34 @@ public class Login_SignUp {
 
 
     @PostMapping("/signIn")
-    public ResponseEntity<String> signIn(@RequestBody LoginDetails loginDetails){
+    public ResponseEntity<CustomResponse> signIn(@RequestBody LoginDetails loginDetails){
 
+        CustomResponse response = new CustomResponse();
         try {
-             Authentication authentication = new UsernamePasswordAuthenticationToken(loginDetails.getUsername(),loginDetails.getPassword());
+             Authentication authentication = new UsernamePasswordAuthenticationToken(loginDetails.getEmail(),loginDetails.getPassword());
 
             Authentication authenticated = authenticationManager.authenticate(authentication);
 
              if (authenticated.isAuthenticated()) {
 
                  String authority = authenticated.getAuthorities().toString();
-                 System.out.println(authority);
+                // System.out.println(authority);
                  if(authority.equals("[ROLE_TEACHER]")){
-                     return ResponseEntity.ok("Teacher");
+                     response.setMessage("Teacher");
+                     return ResponseEntity.ok(response);
                  }
                  else{
-                     return ResponseEntity.ok("Student");
+                     response.setMessage("Student");
+                     return ResponseEntity.ok(response);
                  }
 
             } else {
-               return ResponseEntity.ok("");
+                 response.setMessage("Login Failed");
+               return ResponseEntity.ok(response);
             }
         } catch (AuthenticationException e) {
-            return ResponseEntity.ok("Wrong credentails");
+            response.setMessage("Wrong credentails");
+            return ResponseEntity.ok(response);
         }
     }
 
@@ -63,18 +67,19 @@ public class Login_SignUp {
 
 
     @RequestMapping("/register/student")
-    public ResponseEntity<String> register_student(@RequestBody StudentDto studentDto){
+    public ResponseEntity<CustomResponse> register_student(@RequestBody StudentDto studentDto){
+
 
         String message = studentService.save_student(studentDto);
 
-        return ResponseEntity.ok(message);
+        return ResponseEntity.ok(new CustomResponse(message));
     }
 
     @RequestMapping("/register/teacher")
-    public ResponseEntity<String> register_Teacher(@RequestBody TeacherDTO teacherDTO){
+    public ResponseEntity<CustomResponse> register_Teacher(@RequestBody TeacherDTO teacherDTO){
 
         String message = teacherService.save_teacher(teacherDTO);
 
-        return ResponseEntity.ok(message);
+        return ResponseEntity.ok(new CustomResponse(message));
     }
 }
