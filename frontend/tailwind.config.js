@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       backgroundImage : {
-        'login' : "url('src/assests/Images/login.jpg')"
+        'login' : "url('src/assests/Images/login.jpg')",
+        'teacher-avatar' : "url('src/assets/Images/teacher-avatar.jpg')",
+        'student-avatar' : "url('src/assets/Images/student-avatar.jpg')",
+        'homepage' : "url('src/assets/Images/homepage.jpg)",
       }
     },
   },
