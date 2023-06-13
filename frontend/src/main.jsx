@@ -9,9 +9,16 @@ import {
 import ErrorPage from './Pages/ErrorPage/ErrorPage.jsx';
 import Signup from './Pages/Signup/Signup.jsx';
 import Login from './Pages/Login/Login.jsx';
-import Dashboard from './Pages/Dashboard/Dashboard';
+import Homepage from './Pages/Homepage/Homepage';
+import StudentDashboard from './Pages/StudentDashboard/StudentDashboard';
+import TeacherDashboard from './Pages/TeacherDashboard/TeacherDashboard';
+
 
 const router = createBrowserRouter([
+  {
+    path : "/",
+    element : <Homepage />
+  },
   {
     path: "/signup",
     element: <Signup />,
@@ -21,8 +28,12 @@ const router = createBrowserRouter([
     element : <Login />,
   },
   {
-    path : '/dashboard',
-    element : <Dashboard />
+    path : '/dashboard/student',
+    element :  <StudentDashboard />
+  },
+  {
+    path : '/dashboard/teacher',
+    element : <TeacherDashboard />
   },
   {
     path : "*",
