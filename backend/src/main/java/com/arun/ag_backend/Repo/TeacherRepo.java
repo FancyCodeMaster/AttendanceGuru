@@ -1,5 +1,6 @@
 package com.arun.ag_backend.Repo;
 
+import com.arun.ag_backend.Entities.Student;
 import com.arun.ag_backend.Entities.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,8 +11,6 @@ import java.util.Optional;
 
 @Repository
 public interface TeacherRepo extends JpaRepository<Teacher, Integer > {
-
-    @Query("select u from Teacher u where u.email = :email")
-    Optional<Teacher> findByEmail(@Param("email") String email);
-
+    @Query("SELECT t FROM Teacher t WHERE t.user.email = :email")
+    Optional<Teacher> findByUserEmail(@Param("email") String email);
 }

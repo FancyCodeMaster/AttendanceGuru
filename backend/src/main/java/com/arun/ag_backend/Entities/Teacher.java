@@ -15,12 +15,8 @@ public class Teacher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    private String email;
-
-    private String password;
-
-    private String role;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
 
 }

@@ -3,15 +3,18 @@ package com.arun.ag_backend.Controller;
 import com.arun.ag_backend.Dto.StudentDto;
 import com.arun.ag_backend.Dto.TeacherDTO;
 import com.arun.ag_backend.Entities.LoginDetails;
+import com.arun.ag_backend.JSON.AuthResponse;
 import com.arun.ag_backend.JSON.CustomResponse;
+import com.arun.ag_backend.JWT.JWTService;
 import com.arun.ag_backend.Services.StudentService;
 import com.arun.ag_backend.Services.TeacherService;
+import com.arun.ag_backend.UserDetails.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.AuthenticationException;;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
@@ -28,13 +31,15 @@ public class Login_SignUp {
     @Autowired
     private TeacherService teacherService;
 
-
+    @Autowired
+    private JWTService jwtService;
 
 
     @PostMapping("/signIn")
-    public ResponseEntity<CustomResponse> signIn(@RequestBody LoginDetails loginDetails){
+    public ResponseEntity<Object> signIn(@RequestBody LoginDetails loginDetails){
 
         CustomResponse response = new CustomResponse();
+        AuthResponse authResponse = new AuthResponse();
         try {
              Authentication authentication = new UsernamePasswordAuthenticationToken(loginDetails.getEmail(),loginDetails.getPassword());
 
@@ -42,15 +47,25 @@ public class Login_SignUp {
 
              if (authenticated.isAuthenticated()) {
 
+
                  String authority = authenticated.getAuthorities().toString();
-                // System.out.println(authority);
+
+                CustomUserDetails userDetails = (CustomUserDetails) authenticated.getPrincipal();
+
+                String token = jwtService.generateToken(userDetails.getEmail());
+                 authResponse.setEmail(userDetails.getEmail());
+                 authResponse.setName(userDetails.getUsername());
+                 authResponse.setToken(token);
+
+                     // System.out.println(authority);
                  if(authority.equals("[ROLE_TEACHER]")){
-                     response.setMessage("Teacher");
-                     return ResponseEntity.ok(response);
+
+                     authResponse.setRole("Teacher");
+                     return ResponseEntity.ok(authResponse);
                  }
                  else{
-                     response.setMessage("Student");
-                     return ResponseEntity.ok(response);
+                        authResponse.setRole("Student");
+                     return ResponseEntity.ok(authResponse);
                  }
 
             } else {
