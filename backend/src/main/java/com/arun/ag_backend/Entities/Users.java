@@ -1,25 +1,27 @@
 package com.arun.ag_backend.Entities;
 
 
-import lombok.Data;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "students")
-public class Student {
+@Table(name = "User")
+public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
+    private String email;
 
-    private int roll;
+    private String password;
+
+    private String role;
+
 }

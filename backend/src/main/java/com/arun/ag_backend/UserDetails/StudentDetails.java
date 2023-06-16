@@ -17,25 +17,25 @@ public class StudentDetails implements UserDetails {
     private Student student;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(student.getRole()));
+        return Collections.singleton(new SimpleGrantedAuthority(student.getUser().getRole()));
     }
 
     @Override
     public String getPassword() {
-        return student.getPassword();
+        return student.getUser().getPassword();
     }
 
     @Override
     public String getUsername() {
-        return student.getName();
+        return student.getUser().getName();
     }
 
 
     public String getEmail() {
-        return student.getEmail();
+        return student.getUser().getEmail();
     }
     public int getRoll(){
-        return student.getCollege_roll();
+        return student.getRoll();
     }
 
 

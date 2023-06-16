@@ -1,6 +1,7 @@
 package com.arun.ag_backend.UserDetails;
 
 import com.arun.ag_backend.Entities.Teacher;
+import com.arun.ag_backend.Entities.Users;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,30 +13,30 @@ import java.util.Collections;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class TeacherDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
 
 
-    private Teacher teacher;
+    private Users user;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(teacher.getUser().getRole()));
+        return Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
     }
 
     @Override
     public String getPassword() {
-        return teacher.getUser().getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return teacher.getUser().getName();
+        return user.getName();
     }
 
     public String getEmail(){
-        return teacher.getUser().getEmail();
+        return user.getEmail();
     }
     @Override
     public boolean isAccountNonExpired() {

@@ -11,9 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepo extends JpaRepository<Student , Integer> {
-    @Query("select s from Student s where s.email = :email")
-    Optional<Student> findByEmail(@Param("email") String email);
-    @Query("select s from Student s where s.college_roll = :college_roll")
-    Optional<Student> findByRoll(@Param("college_roll") int college_roll);
+
+    @Query("SELECT s FROM Student s WHERE s.user.email = :email")
+    Optional<Student> findByUserEmail(@Param("email") String email);
 
 }
