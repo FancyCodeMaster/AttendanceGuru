@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios';
-import './Login.css'
+import background from '../../assets/Images/background.png'
 import {
     Link,
   } from "react-router-dom";
@@ -11,7 +11,7 @@ const Login = () => {
 
   const onButtonClick = (e) => {
     e.preventDefault();
-    postData();
+    if(email !== '' && password !== '') postData();
   }
 
   const postData = async () => {
@@ -30,15 +30,16 @@ const Login = () => {
   }
     
   return (
-    <div className='login'>
-      <div>
-        <h1>Login</h1>
-        <p>Email</p>
-        <input type="email" placeholder='youremail@ncit.edu.np' onChange={(el) => updateEmail(el.target.value)}></input>
-        <p>Password</p>
-        <input type="password" placeholder='Password' onChange={(el) => updatePassword(el.target.value)}></input>
-        <p>Not a user, <span><Link to="/signup">Sign Up</Link></span></p>
-        <button onClick={onButtonClick}>Login</button>
+    <div class='bg-cover bg-center bg-no-repeat bg-fixed md:h-screen md:w-screen md:flex md:justify-center md:items-center' style={{backgroundImage : `url(${background})`}}>
+      <div class='h-screen w-screen bg-discordBlack text-discordWhite py-10 px-6  md:h-auto md:w-1/3'>
+        <h1 class='text-center text-2xl'>Welcome again!</h1>
+        <h2 class='mb-4 text-center text-lg'>Glad to see you again</h2>
+        <p class='uppercase hidden md:block'>Email</p>
+        <input type="email" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:text-discordDarkBlack' placeholder='email' onChange={(el) => updateEmail(el.target.value)}></input>
+        <p class='uppercase hidden md:block'>Password</p>
+        <input type="password" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:text-discordDarkBlack' placeholder='password' onChange={(el) => updatePassword(el.target.value)}></input>
+        <p class='mb-4'>Not a user, <span class='text-discordBlue underline'><Link to="/signup">Sign Up</Link></span></p>
+        <button class='bg-discordBlue text-discordWhite border-discordBlue rounded-none w-full p-2' onClick={onButtonClick}>Login</button>
       </div>
     </div>
   )
