@@ -2,14 +2,19 @@ import React from 'react'
 import SidebarItem from '../../Components/Searchbar/SidebarItem/SidebarItem'
 import Searchbar from '../../Components/Searchbar/Searchbar/Searchbar'
 import UserProfileSidebar from '../../Components/Searchbar/UserProfileSidebar/UserProfileSidebar'
+import logo from '../../assets/Images/logo.png'
+import cctv from '../../assets/Images/cctv.svg'
 
 const StudentDashboard = () => {
   return (
     <div class='h-screen w-screen flex justify-between'>
       {/* Sidebar */}
-      <div class='basis-1/6 border-r-2 border-blue-500'>
-        {/* NCIT header */}
-        <h1 class='text-2xl text-blue-500 mt-6'>NCIT</h1>
+      <div class='basis-1/6 border-r-2 border-neonBlue '>
+        {/* Project Logo */}
+        {/* <h1 class='text-2xl text-blue-500 mt-6'>NCIT</h1> */}
+        <div class='flex justify-center pt-2 items-center cursor-pointer'>
+          <img alt='attendance guru logo' src={`${logo}`} class='w-12 h-12' />
+        </div>
         <SidebarItem itemText='Dashboard' />
         <SidebarItem itemText='Classes' />
         <SidebarItem itemText='Calendar' />
@@ -22,7 +27,7 @@ const StudentDashboard = () => {
 
 
       {/* middle section */}
-      <div class='basis-4/6 border-r-2 border-blue-500'>
+      <div class='basis-4/6 border-r-2 border-neonBlue'>
         {/* Searchbar */}
         <div class='w-full flex justify-center items-center py-4'>
             <Searchbar />
@@ -30,7 +35,7 @@ const StudentDashboard = () => {
         
 
         {/* sidebar item title */}
-        <h1 class='text-2xl text-blue-500'>Dashboard</h1>
+        <h1 class='text-2xl text-neonBlue'>Dashboard</h1>
 
         {/* Graph */}
       </div>
@@ -42,6 +47,8 @@ const StudentDashboard = () => {
 
         {/* calendar */}
         <h1>Calendar Place</h1>
+
+        <img src={`${cctv}`}></img>
       </div>
     </div>
   )

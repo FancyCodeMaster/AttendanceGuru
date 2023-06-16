@@ -7,10 +7,16 @@ export default {
   theme: {
     extend: {
       backgroundImage : {
-        'login' : "url('src/assests/Images/login.jpg')",
-        'teacher-avatar' : "url('src/assets/Images/teacher-avatar.jpg')",
-        'student-avatar' : "url('src/assets/Images/student-avatar.jpg')",
-        'homepage' : "url('src/assets/Images/homepage.jpg)",
+        login : "url('src/assests/Images/login.jpg')",
+        teacherAvatar : "url('src/assets/Images/teacher-avatar.jpg')",
+        studentAvatar : "url('src/assets/Images/student-avatar.jpg')",
+        homepage : "url('src/assets/Images/homepage.jpg)",
+      },
+      colors : {
+        kellyGreen : '#4cbb17',
+        neonBlue : '#4d4dff',
+        discordBlue : '#5765f2',
+        discordBlack : '#37393f '
       }
     },
   },
