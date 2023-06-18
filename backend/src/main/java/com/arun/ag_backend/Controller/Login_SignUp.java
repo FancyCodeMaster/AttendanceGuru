@@ -6,6 +6,7 @@ import com.arun.ag_backend.Entities.LoginDetails;
 import com.arun.ag_backend.JSON.AuthResponse;
 import com.arun.ag_backend.JSON.CustomResponse;
 import com.arun.ag_backend.JWT.JWTService;
+import com.arun.ag_backend.Services.EmailService;
 import com.arun.ag_backend.Services.StudentService;
 import com.arun.ag_backend.Services.TeacherService;
 import com.arun.ag_backend.UserDetails.CustomUserDetails;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class Login_SignUp {
 
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -86,7 +89,11 @@ public class Login_SignUp {
 
 
         String message = studentService.save_student(studentDto);
+        String confirmationLink = "http://ag.register/confirm?token=abc123";  // Replace with your actual confirmation link
 
+        // Send confirmation email
+        emailService.sendConfirmationEmail(studentDto.getEmail(), confirmationLink);
+        System.out.println("Mail sent");
         return ResponseEntity.ok(new CustomResponse(message));
     }
 
