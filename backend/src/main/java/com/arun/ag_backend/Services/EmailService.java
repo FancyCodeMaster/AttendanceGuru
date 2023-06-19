@@ -14,11 +14,11 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public void sendConfirmationEmail(String recipientEmail, String confirmationLink) {
+    public void sendConfirmationEmail(String recipientEmail, String otp) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(recipientEmail);
-        message.setSubject("Confirmation Email");
-        message.setText("Please click on the following link to confirm your registration: " + confirmationLink);
+        message.setSubject("Confirmation OTP");
+        message.setText("A - " + otp );
         mailSender.send(message);
     }
 }

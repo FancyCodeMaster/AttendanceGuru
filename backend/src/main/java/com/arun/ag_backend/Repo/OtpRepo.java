@@ -1,5 +1,6 @@
 package com.arun.ag_backend.Repo;
 
+import com.arun.ag_backend.Entities.OTP;
 import com.arun.ag_backend.Entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,12 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<Users, Integer>{
-
-    @Query("select  u from  Users u where u.email = :email")
-    Optional<Users> findByEmail(@Param("email") String email);
-
+public interface OtpRepo extends JpaRepository<OTP, Integer> {
     @Modifying
-    @Query("UPDATE Users u SET u.isEnabled = :newEnabledValue WHERE u.email = :email")
-    void updateIsEnabledByEmail(@Param("newEnabledValue") boolean newEnabledValue, @Param("email") String email);
+    @Query("DELETE FROM OTP o WHERE o.users = :user")
+    void deleteByUser(@Param("user") Users user);
+
+    @Query("SELECT o from OTP o where o.otp_token = :otp_token")
+    Optional<OTP> findByOtp(@Param("otp_token") int otp_token);
 }
