@@ -21,27 +21,47 @@ public class TeacherService {
     private TeacherRepo teacherRepo;
 
     @Autowired
-    private UserRepo userRepo;
+    private UserService userService;
 
-    public String save_teacher(TeacherDTO teacherDTO) {
+    public Users save_teacher(TeacherDTO teacherDTO) {
 
-        Optional<Teacher> existingteacher = teacherRepo.findByUserEmail(teacherDTO.getEmail());
-        if(existingteacher.isEmpty()){
-            Users user = new Users();
-            user.setEmail(teacherDTO.getEmail());
-            user.setName(teacherDTO.getName());
+        Users user = new Users();
+        user.setEmail(teacherDTO.getEmail());
+        user.setName(teacherDTO.getName());
 
-            user.setRole("ROLE_TEACHER");
-            user.setPassword(encoder.encode(teacherDTO.getPassword()));
-            userRepo.save(user);
-            Teacher teacher = new Teacher();
-            teacher.setUser(user);
+        user.setRole("ROLE_TEACHER");
+        user.setPassword(encoder.encode(teacherDTO.getPassword()));
+
+        Teacher teacher = new Teacher();
+        teacher.setUser(user);
+
+        Optional<Users> existingUser = userService.finByEmail(teacherDTO.getEmail());
+
+        if(existingUser.isEmpty()){
+
+
+            userService.save_user(user);
+
 
             teacherRepo.save(teacher);
 
-            return "Successfully registered";
+            return user;
     }else {
-        return "Email already exists";
+            Users ex_user = existingUser.get();
+            Optional<Teacher> ex_teacher = teacherRepo.findByUserEmail(ex_user.getEmail());
+            Teacher t = ex_teacher.get();
+            teacherRepo.delete(t);
+            if(!ex_user.isEnabled()){
+                userService.delete_user(ex_user);
+                userService.save_user(user);
+                teacherRepo.save(teacher);
+
+                return user;
+            }else
+            {
+
+                return null;
+            }
     }
 }
 }
