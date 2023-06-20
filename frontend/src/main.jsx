@@ -17,7 +17,7 @@ import TeacherDashboard from './Pages/TeacherDashboard/TeacherDashboard';
 const router = createBrowserRouter([
   {
     path : "/",
-    element : <Homepage />
+    element : <Signup />
   },
   {
     path: "/signup",
