@@ -5,10 +5,10 @@ const Searchbar = () => {
   return (
     <div class='px-28 relative rounded w-full'>
       {/* search icon */}
-      <div class='absolute left-32 top-2 text-neonBlue'><SearchIcon /></div>
+      <div class='absolute left-32 top-3 text-discordBlue'><SearchIcon /></div>
       
       {/* input box */}
-      <input type='text' class='w-full pl-12 text-lg border-2 border-neonBlue text-neonBlue rounded-lg' placeholder='Search' />
+      <input type='text' class='w-full pl-12 py-2 text-lg border-2 outline-none border-discordBlue text-discordBlue rounded-lg' placeholder='Search' />
     </div>
   )
 }
