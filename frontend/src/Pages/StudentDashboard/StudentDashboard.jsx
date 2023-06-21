@@ -72,9 +72,9 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     let studentStatus = localStorage.getItem("student");
-    if(studentStatus !== 1){
-      navigate('/login');
-    }
+    // if(studentStatus !== 1){
+    //   navigate('/login');
+    // }
   })
 
   return (
@@ -102,10 +102,13 @@ const StudentDashboard = () => {
 
 
       {/* middle section */}
-      <div class='basis-4/6 bg-gray-100'>
+      <div class='basis-5/6 bg-gray-100'>
         {/* Searchbar */}
-        <div class='w-full flex justify-center items-center py-4 border-b-3 border-discordBlue'>
+        <div class='w-full flex  items-center py-4 bg-gray-100 dark:bg-black'>
             <Searchbar />
+            <div class=''>
+                <UserProfileSidebar />
+            </div>
         </div>
         
         {(dashboardClicked)?
@@ -137,21 +140,6 @@ const StudentDashboard = () => {
             </div>
           </div>
         </div></>):null}
-      </div>
-
-      {/* Calendar and Profile section */}
-      <div class='basis-1/6'>
-        {/*  user profile sidebar*/}
-        <div class=''>
-          <UserProfileSidebar name="Rikesh Silwal" />
-        </div>
-        
-
-        {/* calendar */}
-        <div class=''>
-          {/* <Calendar /> */}
-        </div>
-
       </div>
     </div>
 

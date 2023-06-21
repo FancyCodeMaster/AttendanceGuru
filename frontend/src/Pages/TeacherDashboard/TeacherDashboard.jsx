@@ -78,9 +78,9 @@ const TeacherDashboard = () => {
 
   useEffect(() => {
     let teacherStatus = localStorage.getItem("student");
-    if(teacherStatus !== 1){
-      navigate('/login');
-    }
+    // if(teacherStatus !== 1){
+    //   navigate('/login');
+    // }
   })
 
   return (

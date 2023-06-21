@@ -1,16 +1,26 @@
-import React, { useState } from 'react'
-import axios from 'axios';
+import React, { useState, useRef, useEffect } from 'react'
+import axios from '../../api/axios'
 import { Link, useNavigate } from 'react-router-dom'
 import background from '../../assets/Images/background.png'
+import Bars from 'react-loading-icons/dist/esm/components/bars';
+
 
 const Signup = () => {
 
+    const firstInputBoxRef = useRef();
+
+    useEffect(() => {
+        firstInputBoxRef.current.focus();
+    }, [])
+
     const navigate = useNavigate();
 
-    const [name, updateName] = useState(null);
+    // const [username, updateUserName] = useState(null);
     const [email, updateEmail] = useState(null);
     const [password, updatePassword] = useState(null);
     const [confirmPassword, updateConfirmPassword] = useState(null);
+    const [errMsg, setErrMsg] = useState('');
+    const [isButtonLoading, setIsButtonLoading] = useState(false);
 
     const checkPattern = (pattern , str) => {
         let search = str.search(pattern);
@@ -18,12 +28,12 @@ const Signup = () => {
     }
 
     const onButtonClick = (e) => {
-        let namePattern = /^[a-z_A-Z]{3,10}$/
+        // let namePattern = /^[a-z_A-Z]{3,10}$/
         let emailPattern = /^([a-z_A-Z]+)([0-9]*)(\.?)([0-9]*)(\@)([a-z_A-Z]+)(\.)([a-z_A-Z]+)(\.?)([a-z_A-Z]*)$/;
 
-        let nameSearch = checkPattern(namePattern, name);
+        // let nameSearch = checkPattern(namePattern, userName);
         let emailSearch = checkPattern(emailPattern, email)
-        if(name!== '' && email !== '' && password !== '' && confirmPassword !== '' && password === confirmPassword && nameSearch ===0 && emailSearch === 0){
+        if(email !== '' && password !== '' && confirmPassword !== '' && password === confirmPassword && emailSearch === 0){
             e.preventDefault();
             postData();
         }
@@ -33,20 +43,36 @@ const Signup = () => {
     }
 
     const postData = async () => {
+        setErrMsg('');
+        setIsButtonLoading(true);
         const formData = {
-            name : name,
             email : email,
             password : password,
         }
 
         try{
-            const response = await axios.post("http://localhost:8080/register/teacher", formData);
+            const response = await axios.post("/register/teacher", 
+            JSON.stringify(formData), 
+            {
+                headers : {'Content-Type' : 'application/json'},
+                withCredentials : true
+            });
             const data = await response.data;
+            setIsButtonLoading(false);
             if(data === 'success'){
                 navigate('/login');
             }
         }catch(error){
-            console.log(error);
+            if (!error?.response){
+                setErrMsg('No Server Response');
+            }else if (error.response?.status === 400){
+                setErrMsg('Missing Email or Password');
+            }else if (error.response?.status === 401) {
+                setErrMsg('Unauthorized');
+            }else {
+                setErrMsg('Login Failed');
+            }
+            setIsButtonLoading(false);
         }
     }
     
@@ -55,16 +81,17 @@ const Signup = () => {
             <div class='h-screen w-screen bg-discordBlack text-discordWhite py-10 px-6 md:w-1/3 md:h-auto'>
                 <h1 class='text-center text-2xl'>Namaste</h1>
                 <h2 class='mb-4 text-center text-lg'>Glad to see you for the first time!</h2>
-                <p class='uppercase hidden md:block'>Name</p>
-                <input type="text" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' placeholder='Name' onChange={(el) => updateName(el.target.value)}></input>
+                {(errMsg)?<p class='my-3 text-center text-red-500'>{errMsg}</p>:<p class='my-3 text-center text-red-500 invisible'>this is something</p>}
+                {/* <p class='uppercase hidden md:block'>UserName</p> */}
+                {/* <input type="text" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' required placeholder='Name' onChange={(el) => updateUserName(el.target.value)} ref={firstInputBoxRef}></input> */}
                 <p class='uppercase hidden md:block'>Email</p>
-                <input type="email" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' placeholder='email' onChange={(el) => updateEmail(el.target.value)}></input>
+                <input ref={firstInputBoxRef} type="email" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' required placeholder='email' onChange={(el) => {updateEmail(el.target.value); setErrMsg('')}}></input>
                 <p class='uppercase hidden md:block'>Password</p>
-                <input type="password" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' placeholder='Password' onChange={(el) => updatePassword(el.target.value)}></input>
+                <input type="password" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' required placeholder='Password' onChange={(el) => {updatePassword(el.target.value); setErrMsg('')}}></input>
                 <p class='uppercase hidden md:block'>Confirm Password</p>
-                <input type="password" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' placeholder='Confirm Password' onChange={(el) => updateConfirmPassword(el.target.value)}></input>
+                <input type="password" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' required placeholder='Confirm Password' onChange={(el) => {updateConfirmPassword(el.target.value); setErrMsg('')}}></input>
                 <p class='mb-4'>Already a user? <span class='text-discordBlue underline'><Link to="/login">Log In</Link></span></p>
-                <button class='bg-discordBlue text-discordWhite border-discordBlue rounded-none w-full p-2' onClick={onButtonClick}>Signup</button>
+                <button class='bg-discordBlue text-discordWhite border-discordBlue rounded-none w-full p-2 flex justify-center h-10' onClick={onButtonClick}>{(isButtonLoading)?<Bars class='w-5 h-5' style={{width : '20px', height:'20px'}} />:"Signup"}</button>
             </div>
         </div>
     )
