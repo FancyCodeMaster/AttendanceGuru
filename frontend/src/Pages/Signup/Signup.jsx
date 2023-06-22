@@ -22,6 +22,7 @@ const Signup = () => {
     const [errMsg, setErrMsg] = useState('');
     const [isButtonLoading, setIsButtonLoading] = useState(false);
 
+
     const checkPattern = (pattern , str) => {
         let search = str.search(pattern);
         return search;
@@ -59,9 +60,11 @@ const Signup = () => {
             });
             const data = await response.data;
             setIsButtonLoading(false);
-            // if(data === 'success'){
-            //     navigate('/login');
-            // }
+            if(data.message === 'success'){
+                navigate('/login');
+            }else{
+                setErrMsg(data.message);
+            }
             console.log(data);
         }catch(error){
             if (!error?.response){
