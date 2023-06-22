@@ -57,6 +57,7 @@ const Login = () => {
               }
           );
           const data = await response.data;
+          console.log(data);
           // if(data === 'student'){
           //   localStorage.setItem("studentStatus", 1);
           //   navigate('/dashboard/student')
@@ -65,7 +66,7 @@ const Login = () => {
           //   navigate('/dashboard/teacher')
           // }
           setIsButtonLoading(false);
-          navigate('/dashboard/student');
+          // navigate('/dashboard/student');
       }catch(error){
           if (!error?.response){
               setErrMsg('No Server Response');

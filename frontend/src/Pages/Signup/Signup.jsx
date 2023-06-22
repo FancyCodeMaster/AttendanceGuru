@@ -51,7 +51,7 @@ const Signup = () => {
         }
 
         try{
-            const response = await axios.post("/register/teacher", 
+            const response = await axios.post("/signup", 
             JSON.stringify(formData), 
             {
                 headers : {'Content-Type' : 'application/json'},
@@ -59,9 +59,10 @@ const Signup = () => {
             });
             const data = await response.data;
             setIsButtonLoading(false);
-            if(data === 'success'){
-                navigate('/login');
-            }
+            // if(data === 'success'){
+            //     navigate('/login');
+            // }
+            console.log(data);
         }catch(error){
             if (!error?.response){
                 setErrMsg('No Server Response');
