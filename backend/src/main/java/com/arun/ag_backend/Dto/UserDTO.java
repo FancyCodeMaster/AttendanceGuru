@@ -1,4 +1,4 @@
-package com.arun.ag_backend.JSON;
+package com.arun.ag_backend.Dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthResponse {
+public class UserDTO {
 
-    private String token ;
     private String name ;
-    private String role;
+
+    private String email ;
+    private String password;
 }

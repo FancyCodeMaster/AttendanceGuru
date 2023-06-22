@@ -1,34 +1,21 @@
-//package com.arun.ag_backend.Dto;
-//
-//import com.arun.ag_backend.Entities.Student;
-//import com.arun.ag_backend.Entities.Teacher;
-//import org.springframework.stereotype.Component;
-//
-//@Component
-//public class Helper {
-//
-//    public static Student dto_to_entity(StudentDto studentdto) {
-//        Student student = new Student();
-//        student.getUser().setName(studentdto.getName());
-//
-//        student.getUser().setEmail(studentdto.getEmail());
-//        student.setCollege_roll(studentdto.getCollege_roll());
-//        student.setPassword(studentdto.getPassword());
-//
-//        return student;
-//    }
-//
-//    public static Teacher dto_to_entity(TeacherDTO teacherDTO) {
-//       Teacher teacher = new Teacher();
-//        teacher.setName(teacherDTO.getName());
-//
-//        teacher.setEmail(teacherDTO.getEmail());
-//
-//        teacher.setPassword(teacherDTO.getPassword());
-//
-//        return teacher;
-//    }
+package com.arun.ag_backend.Dto;
+
+import com.arun.ag_backend.Entities.Student;
+import com.arun.ag_backend.Entities.Teacher;
+import com.arun.ag_backend.Entities.Users;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Helper {
+
+    public static Users dto_to_entity(UserDTO userDTO) {
+        Users user = new Users();
+        user.setEmail(userDTO.getEmail());
+        user.setName(userDTO.getName());
+        user.setPassword(userDTO.getPassword());
+
+        return user;
+    }
 
 
-
-//}
+}

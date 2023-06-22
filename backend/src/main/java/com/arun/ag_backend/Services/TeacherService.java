@@ -23,45 +23,39 @@ public class TeacherService {
     @Autowired
     private UserService userService;
 
-    public Users save_teacher(TeacherDTO teacherDTO) {
-
-        Users user = new Users();
-        user.setEmail(teacherDTO.getEmail());
-        user.setName(teacherDTO.getName());
-
-        user.setRole("ROLE_TEACHER");
-        user.setPassword(encoder.encode(teacherDTO.getPassword()));
+    public void save_teacher(Users user) {
 
         Teacher teacher = new Teacher();
         teacher.setUser(user);
+        teacherRepo.save(teacher);
 
-        Optional<Users> existingUser = userService.finByEmail(teacherDTO.getEmail());
-
-        if(existingUser.isEmpty()){
-
-
-            userService.save_user(user);
-
-
-            teacherRepo.save(teacher);
-
-            return user;
-    }else {
-            Users ex_user = existingUser.get();
-            Optional<Teacher> ex_teacher = teacherRepo.findByUserEmail(ex_user.getEmail());
-            Teacher t = ex_teacher.get();
-            teacherRepo.delete(t);
-            if(!ex_user.isEnabled()){
-                userService.delete_user(ex_user);
-                userService.save_user(user);
-                teacherRepo.save(teacher);
-
-                return user;
-            }else
-            {
-
-                return null;
-            }
+//        Optional<Users> existingUser = userService.finByEmail(user.getEmail());
+//
+//        if(existingUser.isEmpty()){
+//
+//
+//            userService.save_user(user);
+//
+//
+//            teacherRepo.save(teacher);
+//
+//            return user;
+//    }else {
+//            Users ex_user = existingUser.get();
+//            Optional<Teacher> ex_teacher = teacherRepo.findByUserEmail(ex_user.getEmail());
+//            Teacher t = ex_teacher.get();
+//            teacherRepo.delete(t);
+//            if(!ex_user.isEnabled()){
+//                userService.delete_user(ex_user);
+//                userService.save_user(user);
+//                teacherRepo.save(teacher);
+//
+//                return user;
+//            }else
+//            {
+//
+//                return null;
+//            }
+//    }
     }
-}
 }
