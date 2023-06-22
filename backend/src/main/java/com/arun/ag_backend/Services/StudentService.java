@@ -28,46 +28,41 @@ public class StudentService {
     @Autowired
     private OtpRepo otpRepo;
 
-    public Users save_student(StudentDto studentdto){
+    public void save_student(Users user , int roll) {
 
-        Users user = new Users();
-        user.setEmail(studentdto.getEmail());
-        user.setName(studentdto.getName());
-        user.setEnabled(false);
-        user.setRole("ROLE_STUDENT");
-        user.setPassword(encoder.encode(studentdto.getPassword()));
 
-        Student student  = new Student();
-        student.setRoll(studentdto.getCollege_roll());
+        Student student = new Student();
+        student.setRoll(roll);
         student.setUser(user);
 
+        studentRepo.save(student);
 
-        Optional<Users> existingUser = userService.finByEmail(studentdto.getEmail());
+//        Optional<Users> existingUser = userService.finByEmail(user.getEmail());
+//
+//        if(existingUser.isEmpty()){
+//
+//            userService.save_user(user);
+//            studentRepo.save(student);
+//
+//            return user;
+//
+//        }else {
+//            Users ex_user = existingUser.get();
+//            Optional<Student> ex_student = studentRepo.findByUserEmail(ex_user.getEmail());
+//            Student s = ex_student.get();
+//            studentRepo.delete(s);
+//
+//            if(!ex_user.isEnabled()){
+//
+//                userService.delete_user(ex_user);
+//                userService.save_user(user);
+//                studentRepo.save(student);
+//                return user;
+//            }else
+//            {
+//
+//                return null;
+//            }
 
-        if(existingUser.isEmpty()){
-
-            userService.save_user(user);
-            studentRepo.save(student);
-
-            return user;
-
-        }else {
-            Users ex_user = existingUser.get();
-            Optional<Student> ex_student = studentRepo.findByUserEmail(ex_user.getEmail());
-            Student s = ex_student.get();
-            studentRepo.delete(s);
-
-            if(!ex_user.isEnabled()){
-
-                userService.delete_user(ex_user);
-                userService.save_user(user);
-                studentRepo.save(student);
-                return user;
-            }else
-            {
-
-                return null;
-            }
-        }
     }
 }
