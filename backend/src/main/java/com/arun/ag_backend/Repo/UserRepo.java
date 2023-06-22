@@ -16,6 +16,8 @@ public interface UserRepo extends JpaRepository<Users, Integer>{
     Optional<Users> findByEmail(@Param("email") String email);
 
     @Modifying
-    @Query("UPDATE Users u SET u.isEnabled = :newEnabledValue WHERE u.email = :email")
+    @Query("UPDATE Users u SET u.is_enabled = :newEnabledValue WHERE u.email = :email")
     void updateIsEnabledByEmail(@Param("newEnabledValue") boolean newEnabledValue, @Param("email") String email);
+
+
 }

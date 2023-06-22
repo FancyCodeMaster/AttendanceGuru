@@ -24,6 +24,7 @@ public class Users {
     private String password;
 
     private String role;
-    private boolean isEnabled;
+
+    private boolean is_enabled;
 
 }

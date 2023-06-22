@@ -18,4 +18,6 @@ public interface OtpRepo extends JpaRepository<OTP, Integer> {
 
     @Query("SELECT o from OTP o where o.otp_token = :otp_token")
     Optional<OTP> findByOtp(@Param("otp_token") int otp_token);
+
+    Optional<OTP> findByUsers(Users user);
 }
