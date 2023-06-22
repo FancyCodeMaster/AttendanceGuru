@@ -58,13 +58,13 @@ const Login = () => {
           );
           const data = await response.data;
           console.log(data);
-          // if(data === 'student'){
-          //   localStorage.setItem("studentStatus", 1);
-          //   navigate('/dashboard/student')
-          // }else{
-          //   localStorage.setItem("teacherStatus", 1);
-          //   navigate('/dashboard/teacher')
-          // }
+          if(data.role === 'student'){
+            localStorage.setItem("studentStatus", 1);
+            navigate('/dashboard/student')
+          }else{
+            localStorage.setItem("teacherStatus", 1);
+            navigate('/dashboard/teacher')
+          }
           setIsButtonLoading(false);
           // navigate('/dashboard/student');
       }catch(error){
