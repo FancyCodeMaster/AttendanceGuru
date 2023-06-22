@@ -61,9 +61,11 @@ const Login = () => {
           if(data.role === 'student'){
             localStorage.setItem("studentStatus", 1);
             navigate('/dashboard/student')
-          }else{
+          }else if(data.role === 'teacher'){
             localStorage.setItem("teacherStatus", 1);
             navigate('/dashboard/teacher')
+          }else{
+            setErrMsg(data.message);
           }
           setIsButtonLoading(false);
           // navigate('/dashboard/student');
