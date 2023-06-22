@@ -4,9 +4,7 @@ import com.arun.ag_backend.Dto.Helper;
 import com.arun.ag_backend.Dto.StudentDto;
 import com.arun.ag_backend.Dto.TeacherDTO;
 import com.arun.ag_backend.Dto.UserDTO;
-import com.arun.ag_backend.Entities.LoginDetails;
-import com.arun.ag_backend.Entities.OTP;
-import com.arun.ag_backend.Entities.Users;
+import com.arun.ag_backend.Entities.*;
 import com.arun.ag_backend.JSON.AuthResponse;
 import com.arun.ag_backend.JSON.CustomResponse;
 import com.arun.ag_backend.JWT.JWTService;
@@ -55,19 +53,22 @@ public class Login_SignUp {
     CustomResponse response = new CustomResponse();
     AuthResponse authResponse = new AuthResponse();
 
+
+
+    private String role;
+
+    private Users user1  =  new Users();
     @PostMapping("/signIn")
     public ResponseEntity<Object> signIn(@RequestBody LoginDetails loginDetails){
 
 
-//
-//        Optional<Users> user = userService.finByEmail(loginDetails.getEmail());
 
-//        if(!user.get().isEnabled()){
-//            OTP otp = new OTP(user.get());
-//            otpService.save_otp(otp);
-//            emailService.sendConfirmationEmail(loginDetails.getEmail(), String.valueOf(otp.getOtp_token()));
-//
-//        }
+        Optional<Users> user = userService.finByEmail(loginDetails.getEmail());
+        if(user.isPresent()){
+            if(!user.get().is_enabled()){
+                userService.delete_user(user.get());
+            }
+        }
         try {
              Authentication authentication = new UsernamePasswordAuthenticationToken(loginDetails.getEmail(),loginDetails.getPassword());
 
@@ -152,45 +153,65 @@ public class Login_SignUp {
             return ResponseEntity.ok(response);
         }
         else {
-            String role = adminAUserService.findByEmail(userDTO.getEmail()).get().getUser_role();
+             role = adminAUserService.findByEmail(userDTO.getEmail()).get().getUser_role();
             if(userService.finByEmail(userDTO.getEmail()).isPresent()){
-                response.setMessage("Email already exists");
-            }else {
 
+                    if(!userService.finByEmail(userDTO.getEmail()).get().is_enabled())
+                    {
+                        userService.delete_user(userService.finByEmail(userDTO.getEmail()).get());
+                    }else{
+                        response.setMessage("Email already exists");
 
-
+                        return ResponseEntity.ok(response);
+                    }
+            }
                 Users user = Helper.dto_to_entity(userDTO);
                 user.setRole(role);
 
-                userService.save_user(user);
 
-                if(role.equals("Student")){
-                    int roll = adminAUserService.findByEmail(user.getEmail()).get().getRoll();
-                    System.out.println(roll);
-                    studentService.save_student(user , roll);
-                }
-                if(role.equals("Teacher")){
-                    teacherService.save_teacher(user);
-                }
-                response.setMessage("success");
-            }
+                userService.save_user(user);
+                OTP otp = new OTP(user);
+                //otp.setUsers(user);
+                otpService.save_otp(otp);
+                emailService.sendConfirmationEmail(user.getEmail(), String.valueOf(otp.getOtp_token()));
+                System.out.println("Mail sent");
+
+                response.setMessage("OTP");
+                user1 = user;
+                //userService.delete_user(user);
+
         }
 
 
         return ResponseEntity.ok(response);
     }
 
-    @RequestMapping("/register/confirm_otp")
+    @RequestMapping("/signup/confirm_otp")
     public ResponseEntity<Object> confirm_otp(@RequestBody CustomResponse token){
 
-        Optional<OTP> otp = otpService.find_otp(token.getMessage());
+        Optional<OTP> otp = otpService.find_otp(user1);
 
-        if(otp.isPresent()){
-            Optional<Users> user = userService.finByEmail(otp.get().getUsers().getEmail());
-            userService.update_value(true , user.get().getEmail());
+        if(otp.isPresent())
+        {
+            if(Integer.valueOf(token.getMessage()) == otp.get().getOtp_token())
+            {
 
-            response.setMessage("Successfully Registered");
-            otpService.delete_otp(user.get());
+                Users user1 = otp.get().getUsers();
+
+                userService.update_value(true , user1.getEmail());
+                if (role.equals("Student")) {
+                    int roll = adminAUserService.findByEmail(user1.getEmail()).get().getRoll();
+                    studentService.save_student(user1, roll);
+                }
+                if (role.equals("Teacher")) {
+                    teacherService.save_teacher(user1);
+                }
+
+                response.setMessage("Successfully Registered");
+                otpService.delete_otp(user1);
+            }else {
+                response.setMessage("wrong OTP");
+            }
         }else{
             response.setMessage("wrong OTP");
         }

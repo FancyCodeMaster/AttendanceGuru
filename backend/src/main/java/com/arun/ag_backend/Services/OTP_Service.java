@@ -30,4 +30,12 @@ public class OTP_Service {
         return otp;
 
     }
+    public Optional<OTP> find_otp(Users user)
+    {
+        Optional<OTP> otp = otpRepo.findByUsers(user);
+
+        return otp;
+
+    }
+
 }
