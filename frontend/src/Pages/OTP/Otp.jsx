@@ -69,8 +69,8 @@ const Otp = () => {
         <div class='bg-cover bg-center bg-no-repeat bg-fixed md:h-screen md:w-screen md:flex md:justify-center md:items-center' style={{backgroundImage : `url(${background})`}}>
             <div class='h-screen w-screen bg-discordBlack text-discordWhite py-10 px-6 md:w-1/3 md:h-auto'>
                 <h1 class='text-center text-2xl'>Just a Minute</h1>
-                <h2 class='mb-4 text-center text-lg'>Check out your mail</h2>
                 {(errMsg)?<p class='my-3 text-center text-red-500'>{errMsg}</p>:<p class='my-3 text-center text-red-500 invisible'>this is something</p>}
+                {(otp === null)?<p class='my-3 text-center text-green-500'>We've sent OTP to your mail</p>:<p class='my-3 text-center text-red-500 invisible'>this is something</p>}
                 <p class='uppercase hidden md:block'>otp</p>
                 <input ref={firstInputBoxRef} type="text" class='bg-discordDarkBlack w-full placeholder:uppercase mb-3 p-2 outline-none md:placeholder:opacity-0' required placeholder='OTP' onChange={(el) => {updateOtp(el.target.value); setErrMsg('')}}></input>
                 <p class='mb-4'>Didn't get it? <span class='text-discordBlue underline'><Link to="#">Resend</Link></span></p>
