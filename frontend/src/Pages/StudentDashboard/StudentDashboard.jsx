@@ -104,7 +104,7 @@ const StudentDashboard = () => {
       {/* middle section */}
       <div class='basis-5/6 bg-gray-100'>
         {/* Searchbar */}
-        <div class='w-full flex  items-center py-4 bg-gray-100 dark:bg-black'>
+        <div class='w-full flex  items-center py-4 bg-gray-300'>
             <Searchbar />
             <div class=''>
                 <UserProfileSidebar />

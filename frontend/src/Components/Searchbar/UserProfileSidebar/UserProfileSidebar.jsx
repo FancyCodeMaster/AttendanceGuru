@@ -8,18 +8,25 @@ const UserProfileSidebar = (props) => {
   const [lightMode, setLightMode] = useState(true);
 
   useEffect(() => {
-    if(lightMode){
-      document.documentElement.classList.remove("dark");
-    }else{
+    if(localStorage.getItem("darkMode")){
       document.documentElement.classList.add("dark");
+    }else{
+      document.documentElement.classList.remove("dark");
+    }
+  })
+
+  useEffect(() => {
+    if(!lightMode){
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("darkMode", true);
     }
   },[lightMode])
 
   return (
-    <div class='flex space-x-2 items-center px-3 mt-2 pb-2'>
+    <div class='flex space-x-2 items-center px-3'>
       {/* light-dark icon */}
       <div class='basis-1/3 text-discordBlue border-1 bg-white dark:bg-black p-2 shadow-sm shadow-gray rounded cursor-pointer' onClick={() => setLightMode(!lightMode)}>
-        {(lightMode)?<LightModeIcon />:<DarkModeIcon />}
+        {(lightMode)?<DarkModeIcon />:<LightModeIcon />}
       </div>
       {/* bell */}
       <div class='text-discordBlue basis-1/3 border-1 bg-white p-2 shadow-sm shadow-gray rounded cursor-pointer'>
