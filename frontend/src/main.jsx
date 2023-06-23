@@ -14,6 +14,7 @@ import StudentDashboard from './Pages/StudentDashboard/StudentDashboard';
 import TeacherDashboard from './Pages/TeacherDashboard/TeacherDashboard';
 
 import { AuthProvider } from './context/AuthProvider';
+import Otp from './Pages/OTP/Otp';
 
 
 const router = createBrowserRouter([
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+  {
+    path : "/signup/otp-verification",
+    element : <Otp />
   },
   {
     path : '/login',
