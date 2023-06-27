@@ -5,22 +5,31 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import { Avatar } from '@mui/material';
 
 const UserProfileSidebar = (props) => {
-  const [lightMode, setLightMode] = useState(true);
+  const [lightMode, setLightMode] = useState(("lightMode" in localStorage)? localStorage.getItem("lightMode"):true);
+
+  // useEffect(() => {
+  //   console.log(lightMode);
+  //   if(lightMode === true){
+  //     console.log(lightMode);
+  //     document.documentElement.classList.remove("dark");
+  //     localStorage.setItem("lightMode", true);
+  //   }else if(lightMode === false){
+  //     console.log(lightMode);
+  //     document.documentElement.classList.add("dark");
+  //     localStorage.setItem("lightMode", false);
+  //   }
+  // },[lightMode])
 
   useEffect(() => {
-    if(localStorage.getItem("darkMode")){
-      document.documentElement.classList.add("dark");
-    }else{
+    localStorage.setItem("lightMode", lightMode);
+    const mode = localStorage.getItem("lightMode");
+    if(mode === true){
       document.documentElement.classList.remove("dark");
-    }
-  })
-
-  useEffect(() => {
-    if(!lightMode){
+    }else if (mode === false){
       document.documentElement.classList.add("dark");
       localStorage.setItem("darkMode", true);
     }
-  },[lightMode])
+  }, [lightMode])
 
   return (
     <div class='flex space-x-2 items-center px-3'>

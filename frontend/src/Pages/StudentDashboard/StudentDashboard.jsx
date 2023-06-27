@@ -112,7 +112,7 @@ const StudentDashboard = () => {
         </div>
         
         {(dashboardClicked)?
-        (<><h1 class='text-2xl text-discordBlue text-center'>Dashboard</h1>
+        (<><h1 class='text-2xl text-discordBlue text-center mt-2'>Dashboard</h1>
 
         <div class='my-6'>
           <h3 class='text-lg text-discordBlue text-center mb-1'>Attendance Overview</h3>
@@ -126,20 +126,60 @@ const StudentDashboard = () => {
             <div class='flex flex-col space-y-2'>
               <SubjectPie percentage={80} subjectName="PPL" widthHeight='w-32 h-32' />
             </div>
-            <div>
+            <div class='flex flex-col space-y-2'>
               <SubjectPie percentage={75} subjectName="CN" widthHeight='w-32 h-32' />
             </div>
-            <div>
+            <div class='flex flex-col space-y-2'>
               <SubjectPie percentage={65} subjectName="EE" widthHeight='w-32 h-32' />
             </div>
-            <div>
+            <div class='flex flex-col space-y-2'>
               <SubjectPie percentage={70} subjectName="OOSD" widthHeight='w-32 h-32' />
             </div>
-            <div>
+            <div class='flex flex-col space-y-2'>
               <SubjectPie percentage={85} subjectName="MMS" widthHeight='w-32 h-32' />
             </div>
           </div>
         </div></>):null}
+
+
+        {(classesClicked)?(
+          <div class='px-20 w-full h-full'>
+          <h1 class='text-center text-2xl text-discordBlue my-4 mb-8'>Classes</h1>
+          <div class='flex w-full justify-center space-x-5 flex-wrap'>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <SubjectPie percentage={80} subjectName="PPL" widthHeight='w-32 h-32' />
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <SubjectPie percentage={75} subjectName="CN" widthHeight='w-32 h-32' />
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <SubjectPie percentage={65} subjectName="EE" widthHeight='w-32 h-32' />
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <SubjectPie percentage={70} subjectName="OOSD" widthHeight='w-32 h-32' />
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <SubjectPie percentage={85} subjectName="MMS" widthHeight='w-32 h-32' />
+            </div>
+          </div>
+        </div>
+        ):null
+        }
+
+        {(profileClicked)?(
+          <h1>profile</h1>
+        ):null
+        }
+
+        {(calendarClicked)?(
+          <h1>calendar</h1>
+        ):null
+        }
+
+        {(settingClicked)?(
+          <h1>setting</h1>
+        ):null
+        }
       </div>
     </div>
 
@@ -168,7 +208,10 @@ const StudentDashboard = () => {
       </div>):null}
 
       {(showMenu && dashboardClicked)?(
-        <Dashboard />
+        <div class='w-full'>
+          <h3 class='text-lg text-discordBlue text-center mb-1'>Attendance Overview</h3>
+          <LineChartComp />
+        </div>
       ):null
       }
 
@@ -191,16 +234,6 @@ const StudentDashboard = () => {
         <h1>setting</h1>
       ):null
       }
-      
-      <style>
-      {`
-          @layer utilities {
-            .no-scrollbar::-webkit-scrollbar {
-              display: none;
-            }
-          }
-        `}
-      </style>
       
     </div>
     </>

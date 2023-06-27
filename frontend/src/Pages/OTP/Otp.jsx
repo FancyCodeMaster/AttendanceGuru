@@ -33,11 +33,11 @@ const Otp = () => {
         setErrMsg('');
         setIsButtonLoading(true);
         const formData = {
-            otp : otp,
+            message : otp,
         }
 
         try{
-            const response = await axios.post("/signup/otp", 
+            const response = await axios.post("/signup/confirm_otp", 
             JSON.stringify(formData), 
             {
                 headers : {'Content-Type' : 'application/json'},
