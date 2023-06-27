@@ -22,4 +22,8 @@ public class Student {
     private Users user;
 
     private int roll;
+
+    @ManyToOne
+    @JoinColumn(name="class_id")
+    private Class aClass;
 }

@@ -1,6 +1,7 @@
 package com.arun.ag_backend.Filter;
 
 import com.arun.ag_backend.JWT.JWTService;
+import com.arun.ag_backend.UserDetails.CustomUserDetails;
 import com.arun.ag_backend.UserDetailsService.CustomUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -67,16 +68,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            System.out.println("Arun");
+            CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
             if (jwtService.validateToken(token, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
+
+
         }
         filterChain.doFilter(request, response);
     }
-
 
 }
