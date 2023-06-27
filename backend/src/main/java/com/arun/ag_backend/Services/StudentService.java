@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,32 +38,11 @@ public class StudentService {
 
         studentRepo.save(student);
 
-//        Optional<Users> existingUser = userService.finByEmail(user.getEmail());
-//
-//        if(existingUser.isEmpty()){
-//
-//            userService.save_user(user);
-//            studentRepo.save(student);
-//
-//            return user;
-//
-//        }else {
-//            Users ex_user = existingUser.get();
-//            Optional<Student> ex_student = studentRepo.findByUserEmail(ex_user.getEmail());
-//            Student s = ex_student.get();
-//            studentRepo.delete(s);
-//
-//            if(!ex_user.isEnabled()){
-//
-//                userService.delete_user(ex_user);
-//                userService.save_user(user);
-//                studentRepo.save(student);
-//                return user;
-//            }else
-//            {
-//
-//                return null;
-//            }
+    }
 
+    public void get_classes(String email){
+
+       List<Object[]> objectList = studentRepo.findClassAndSubjectsByEmail(email);
+        System.out.println(objectList);
     }
 }
