@@ -207,7 +207,7 @@ public class Login_SignUp {
                     teacherService.save_teacher(user1);
                 }
 
-                response.setMessage("Successfully Registered");
+                response.setMessage("success");
                 otpService.delete_otp(user1);
             }else {
                 response.setMessage("wrong OTP");
