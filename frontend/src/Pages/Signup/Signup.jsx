@@ -60,8 +60,8 @@ const Signup = () => {
             });
             const data = await response.data;
             setIsButtonLoading(false);
-            if(data.message === 'success'){
-                navigate('/login');
+            if(data.message === 'OTP'){
+                navigate('/signup/otp-verification');
             }else{
                 setErrMsg(data.message);
             }
