@@ -27,28 +27,13 @@ const TopAttendeesTable = () => {
     },
     {
       sn: 3,
-      name: "Redragon S101",
+      name: "Rikesh Silwal Khatri",
       img: "https://m.media-amazon.com/images/I/71kr3WAj1FL._AC_UY327_FMwebp_QL65_.jpg",
-      sem: "1 March",
-      roll: 35,
-      email: "Cash on Delivery",
+      sem: "4",
+      roll: 191634,
+      email: "rikesh.191634@ncit.edu.np",
     },
-    {
-      sn: 4,
-      name: "Razer Blade 15",
-      img: "https://m.media-amazon.com/images/I/71wF7YDIQkL._AC_UY327_FMwebp_QL65_.jpg",
-      sem: "1 March",
-      roll: 920,
-      email: "Online",
-    },
-    {
-      sn: 5,
-      name: "ASUS ROG Strix",
-      img: "https://m.media-amazon.com/images/I/81hH5vK-MCL._AC_UY327_FMwebp_QL65_.jpg",
-      sem: "1 March",
-      roll: 2000,
-      email: "Online",
-    },
+    
   ];
   return (
     <TableContainer component={Paper} className="table">

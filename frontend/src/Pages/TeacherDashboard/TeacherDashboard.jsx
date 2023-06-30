@@ -87,7 +87,7 @@ const TeacherDashboard = () => {
     <>
     <div class='hidden md:flex md:h-screen md:w-screen  md:justify-between md:overflow-hidden'>
       {/* Sidebar */}
-      <div class='basis-1/6'>
+      <div class='basis-1/6 dark:bg-black'>
         {/* Project Logo */}
         {/* <h1 class='text-2xl text-blue-500 mt-6'>NCIT</h1> */}
         <div class='flex justify-center py-6 px-2 items-center cursor-pointer space-x-2 '>
@@ -107,14 +107,17 @@ const TeacherDashboard = () => {
 
 
       {/* middle section */}
-      <div class='basis-4/6 bg-gray-100'>
+      <div class='basis-5/6 bg-gray-100 dark:bg-black'>
         {/* Searchbar */}
-        <div class='w-full flex justify-center items-center py-4 border-b-3 border-discordBlue'>
+        <div class='w-full flex  items-center py-4 bg-gray-300 dark:bg-black'>
             <Searchbar />
+            <div class=''>
+                <UserProfileSidebar />
+            </div>
         </div>
         
         {(dashboardClicked)?
-        (<><h1 class='text-2xl text-discordBlue text-center'>Dashboard</h1>
+        (<div class='h-full overflow-y-scroll mt-6 pb-32'><h1 class='text-2xl text-discordBlue text-center'>Dashboard</h1>
 
         <div class='my-6'>
           <h3 class='text-lg text-discordBlue text-center mb-1'>Class Attendance Performance</h3>
@@ -135,21 +138,46 @@ const TeacherDashboard = () => {
           </div>
           
           
-        </div></>):null}
-      </div>
+        </div></div>):null}
 
-      {/* Calendar and Profile section */}
-      <div class='basis-1/6'>
-        {/*  user profile sidebar*/}
-        <div class=''>
-          <UserProfileSidebar name="Teacher's Name" />
+        {(classesClicked)?(
+          <div class='px-20 w-full h-full'>
+          <h1 class='text-center text-2xl text-discordBlue my-4 mb-8'>Classes</h1>
+          <div class='flex w-full justify-center space-x-5 flex-wrap'>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <h1 class='text-3xl text-discordBlue'>AINN</h1>
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <h1 class='text-3xl text-discordBlue'>WT</h1>
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <h1 class='text-3xl text-discordBlue'>PPL</h1>
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <h1 class='text-3xl text-discordBlue'>OOSD</h1>
+            </div>
+            <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+              <h1 class='text-3xl text-discordBlue'>EE</h1>
+            </div>
+          </div>
         </div>
-        
+        ):null
+        }
 
-        {/* calendar */}
-        <div class=''>
-          {/* <Calendar /> */}
-        </div>
+        {(profileClicked)?(
+          <h1>profile</h1>
+        ):null
+        }
+
+        {(calendarClicked)?(
+          <h1>calendar</h1>
+        ):null
+        }
+
+        {(settingClicked)?(
+          <h1>setting</h1>
+        ):null
+        }
 
       </div>
     </div>
