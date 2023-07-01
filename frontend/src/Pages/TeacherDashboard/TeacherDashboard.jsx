@@ -98,6 +98,9 @@ const TeacherDashboard = () => {
           <SidebarItem muiIcon={<SchoolIcon />} itemText='Classes' textSize='text-lg' onClick={onClassesClicked} leftBorder={(classesClicked)?'border-r-4 border-r-discordBlue bg-gray-300':''} />
           <SidebarItem muiIcon={<PersonIcon />} itemText='Profile' textSize='text-lg' onClick={onProfileClicked} leftBorder={(profileClicked)?'border-r-4 border-r-discordBlue bg-gray-300':''} />
           <SidebarItem muiIcon={<SettingsIcon />} itemText='Setting' textSize='text-lg' onClick={onSettingClicked} leftBorder={(settingClicked)?'border-r-4 border-r-discordBlue bg-gray-300':''} />
+          <div class='flex justify-center'>
+            <button class='text-center border-2 p-1 border-discordBlue bg-discordBlue text-white hover:bg-white hover:text-discordBlue'>Log Out</button>
+          </div>
         </div>
         
 

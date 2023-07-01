@@ -34,12 +34,18 @@ const Signup = () => {
 
         // let nameSearch = checkPattern(namePattern, userName);
         let emailSearch = checkPattern(emailPattern, email)
-        if(email !== '' && password !== '' && confirmPassword !== '' && password === confirmPassword && emailSearch === 0){
+        if(email !== '' && password !== '' && confirmPassword !== '' && password === confirmPassword && emailSearch === 0 && password.length>=8 && confirmPassword.length>=8 && password.length<=24 && confirmPassword.length<=24){
             e.preventDefault();
             postData();
         }
         if(password !== '' && confirmPassword !== '' && password !== confirmPassword){
-            window.alert("Two Passwords not matching");
+            setErrMsg("Two Passwords not matching");
+        }
+        if(password.length < 8 || confirmPassword.length < 8){
+            setErrMsg('Passwords must be at least of 8 characters');
+        }
+        if(password.length > 24 || confirmPassword.length > 24){
+            setErrMsg('Passwords must be at most of 8 characters');
         }
     }
 

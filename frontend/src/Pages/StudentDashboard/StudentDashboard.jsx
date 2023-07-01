@@ -93,6 +93,9 @@ const StudentDashboard = () => {
           <SidebarItem muiIcon={<CalendarMonthIcon />} itemText='Calendar' textSize='text-lg' onClick={onCalendarClicked} leftBorder={(calendarClicked)?'border-r-4 border-r-discordBlue bg-gray-300':''} />
           <SidebarItem muiIcon={<PersonIcon />} itemText='Profile' textSize='text-lg' onClick={onProfileClicked} leftBorder={(profileClicked)?'border-r-4 border-r-discordBlue bg-gray-300':''} />
           <SidebarItem muiIcon={<SettingsIcon />} itemText='Setting' textSize='text-lg' onClick={onSettingClicked} leftBorder={(settingClicked)?'border-r-4 border-r-discordBlue bg-gray-300':''} />
+          <div class='flex justify-center'>
+            <button class='text-center border-2 p-1 border-discordBlue bg-discordBlue text-white hover:bg-white hover:text-discordBlue'>Log Out</button>
+          </div>
         </div>
         
 
@@ -102,7 +105,7 @@ const StudentDashboard = () => {
 
 
       {/* middle section */}
-      <div class='basis-5/6 bg-gray-100'>
+      <div class='basis-5/6 bg-gray-100 pb-10'>
         {/* Searchbar */}
         <div class='w-full flex  items-center py-4 bg-gray-300'>
             <Searchbar />
