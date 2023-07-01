@@ -33,10 +33,17 @@ const Login = () => {
 
     let emailSearch = checkPattern(emailPattern, email)
     e.preventDefault();
-    if(email !== '' && password !== '' && emailSearch === 0){
+    if(email !== '' && password !== '' && emailSearch === 0 && password.length>=8 && password.length<=24){
       postData();
     }else{
-      window.alert("Invalid User")
+      setErrMsg("Invalid User")
+    }
+
+    if(password.length < 8){
+        setErrMsg('Passwords must be at least of 8 characters');
+    }
+    if(password.length > 24){
+        setErrMsg('Passwords must be at most of 8 characters');
     }
   }
 
