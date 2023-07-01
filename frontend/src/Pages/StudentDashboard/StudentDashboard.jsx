@@ -214,12 +214,51 @@ const StudentDashboard = () => {
         <div class='w-full'>
           <h3 class='text-lg text-discordBlue text-center mb-1'>Attendance Overview</h3>
           <LineChartComp />
+          <div>
+          <h3 class='text-center text-lg text-discordBlue mb-4'>Attendance per Subject</h3>
+          <div class='flex w-full justify-center space-x-5 flex-wrap px-20'>
+            <div class='flex flex-col space-y-2'>
+              <SubjectPie percentage={80} subjectName="PPL" widthHeight='w-40 h-40' />
+            </div>
+            <div class='flex flex-col space-y-2'>
+              <SubjectPie percentage={75} subjectName="CN" widthHeight='w-40 h-40' />
+            </div>
+            <div class='flex flex-col space-y-2'>
+              <SubjectPie percentage={65} subjectName="EE" widthHeight='w-40 h-40' />
+            </div>
+            <div class='flex flex-col space-y-2'>
+              <SubjectPie percentage={70} subjectName="OOSD" widthHeight='w-40 h-40' />
+            </div>
+            <div class='flex flex-col space-y-2'>
+              <SubjectPie percentage={85} subjectName="MMS" widthHeight='w-40 h-40' />
+            </div>
+          </div>
+        </div>
         </div>
       ):null
       }
 
       {(showMenu && classesClicked)?(
-        <h1>classes</h1>
+        <div class='px-20 w-full h-full'>
+        <h1 class='text-center text-2xl text-discordBlue my-4 mb-8'>Classes</h1>
+        <div class='flex w-full justify-center space-x-5 flex-wrap'>
+          <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+            <SubjectPie percentage={80} subjectName="PPL" widthHeight='w-32 h-32' />
+          </div>
+          <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+            <SubjectPie percentage={75} subjectName="CN" widthHeight='w-32 h-32' />
+          </div>
+          <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+            <SubjectPie percentage={65} subjectName="EE" widthHeight='w-32 h-32' />
+          </div>
+          <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+            <SubjectPie percentage={70} subjectName="OOSD" widthHeight='w-32 h-32' />
+          </div>
+          <div class='flex flex-col space-y-2 border-1 border-white shadow-discordBlue shadow-lg hover:shadow-md hover:shadow-discordBlue p-10 mb-20'>
+            <SubjectPie percentage={85} subjectName="MMS" widthHeight='w-32 h-32' />
+          </div>
+        </div>
+      </div>
       ):null
       }
 
