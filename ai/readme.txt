@@ -1,2 +1,8 @@
-this is the ai folder.
-here will be the files and folders related to the ai section.
+## About this directory
+
+This is ai directory.
+Sub Directories inside this directory and info about it.
+
+## 1.Face_Detect
+
+--> This folder contains code about face detection. We use mtcnn model for the purpose of facial detection. 
