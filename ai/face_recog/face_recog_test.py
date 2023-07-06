@@ -50,7 +50,7 @@ def load_dataset(directory):
 	# enumerate folders, on per class
 	for subdir in listdir(directory):
 		# path
-		path = directory + subdir + '/'
+		path = directory + '/' + subdir + '/'
 		# skip any files that might be in the dir
 		if not isdir(path):
 			print(0)
