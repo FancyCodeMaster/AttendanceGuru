@@ -5,3 +5,4 @@ keras_facenet
 keras.models
 sklearn
 pillow
+tensorflow

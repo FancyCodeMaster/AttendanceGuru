@@ -53,6 +53,7 @@ def load_dataset(directory):
 		path = directory + subdir + '/'
 		# skip any files that might be in the dir
 		if not isdir(path):
+			print(0)
 			continue
 		# load all faces in the subdirectory
 		faces = load_faces(path)
@@ -66,10 +67,10 @@ def load_dataset(directory):
 	return asarray(X), asarray(y)
 
 # load train dataset
-trainX, trainy = load_dataset('./FaceData/191601/train')
+trainX, trainy = load_dataset('./FaceData/train')
 print(trainX.shape, trainy.shape)
 print(trainy)
 # load test dataset
-testX, testy = load_dataset('./FaceData/191601/val')
+testX, testy = load_dataset('./FaceData/val')
 # save arrays to one file in compressed format
-savez_compressed('aagat-faces-dataset.npz', trainX, trainy, testX, testy)
+savez_compressed('faces-dataset.npz', trainX, trainy, testX, testy)
