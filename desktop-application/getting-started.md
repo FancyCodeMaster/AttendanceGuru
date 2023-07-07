@@ -6,7 +6,7 @@
 
 2. open up the terminal
 
---> a. cd desktopApplication
+--> a. cd desktop-application
 
 --> b. cd frontend
 
