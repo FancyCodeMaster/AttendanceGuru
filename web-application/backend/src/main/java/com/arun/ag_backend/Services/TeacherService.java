@@ -1,6 +1,8 @@
 package com.arun.ag_backend.Services;
 
 import com.arun.ag_backend.Dto.TeacherDTO;
+import com.arun.ag_backend.Entities.Class;
+import com.arun.ag_backend.Entities.Subject;
 import com.arun.ag_backend.Entities.Teacher;
 import com.arun.ag_backend.Entities.Users;
 import com.arun.ag_backend.Repo.TeacherRepo;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -57,5 +60,23 @@ public class TeacherService {
 //                return null;
 //            }
 //    }
+    }
+
+
+
+
+    public void get_teacher_subjects(String email){
+        List<Object[]> teacher_subjects =   teacherRepo.findTeacherSubjectsByEmail(email);
+        for (Object[] result : teacher_subjects) {
+            Class classes = (Class) result[0];
+            Subject subject = (Subject) result[1];
+
+            // Access the class and subject properties as needed
+            String classDetails = classes.toString();
+            String subjectName = subject.toString();
+            System.out.println( classDetails + " " + subjectName);
+
+
+        }
     }
 }

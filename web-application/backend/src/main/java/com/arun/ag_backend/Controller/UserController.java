@@ -10,6 +10,7 @@ import java.security.Principal;
 @RequestMapping("/user")
 public class UserController {
 
+    @RequestMapping
     public ResponseEntity<Object> getClasses(Principal principal){
 
 

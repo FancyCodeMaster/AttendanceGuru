@@ -6,23 +6,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Admin_assigned_Users {
+public class TeacherSubjects {
 
     @Id
-    @Column(name = "user_email")
-    private String email;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    private int roll ;
+
+    @ManyToOne
+    @JoinColumn(name = "user_email")
+    private Admin_assigned_Users users;
 
     @ManyToOne
     @JoinColumn(name = "class_id")
     private Class aClass;
 
-    @Column(name = "User_Role")
-    private String user_role;
-
-
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
 }
