@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+import Login from './Pages/Login/Login';
 
 import {
   createBrowserRouter,
@@ -13,6 +14,10 @@ import { AuthProvider } from './context/AuthProvider';
 
 
 const router = createBrowserRouter([
+  {
+    path : '/',
+    element : <Login />
+  },
   {
     path : "*",
     element : <ErrorPage />,
