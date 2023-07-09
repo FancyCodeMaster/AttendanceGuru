@@ -26,5 +26,13 @@ public class Class {
 
     private int room_no;
 
-
+    @Override
+    public String toString() {
+        return "ClassDetails{" +
+                "faculty='" + faculty + '\'' +
+                ", semester=" + semester +
+                ", shift='" + shift + '\'' +
+                ", room_no=" + room_no +
+                '}';
+    }
 }

@@ -12,16 +12,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "students")
 public class Student {
+
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "roll_no")
+    private int roll;
 
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
 
-    private int roll;
+
 
     @ManyToOne
     @JoinColumn(name="class_id")
