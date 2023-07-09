@@ -5,12 +5,14 @@ import com.arun.ag_backend.Dto.StudentDto;
 import com.arun.ag_backend.Dto.TeacherDTO;
 import com.arun.ag_backend.Dto.UserDTO;
 import com.arun.ag_backend.Entities.*;
+import com.arun.ag_backend.Entities.Class;
 import com.arun.ag_backend.JSON.AuthResponse;
 import com.arun.ag_backend.JSON.CustomResponse;
 import com.arun.ag_backend.JWT.JWTService;
 import com.arun.ag_backend.Services.*;
 import com.arun.ag_backend.UserDetails.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "${cross.origin.url}", allowCredentials = "true")
 @RestController
 public class Login_SignUp {
 
@@ -79,7 +81,7 @@ public class Login_SignUp {
 
                 CustomUserDetails userDetails = (CustomUserDetails) authenticated.getPrincipal();
                 String role = userDetails.getAuthorities().toString();
-                String token = jwtService.generateToken(userDetails.getEmail());
+                String token = jwtService.generateToken(userDetails.getUsername());
 //
                  authResponse.setName(userDetails.getUsername());
 
@@ -201,7 +203,8 @@ public class Login_SignUp {
                 userService.update_value(true , user1.getEmail());
                 if (role.equals("Student")) {
                     int roll = adminAUserService.findByEmail(user1.getEmail()).get().getRoll();
-                    studentService.save_student(user1, roll);
+                    Class class_id = adminAUserService.findByEmail(user1.getEmail()).get().getAClass() ;
+                    studentService.save_student(user1, roll  , class_id);
                 }
                 if (role.equals("Teacher")) {
                     teacherService.save_teacher(user1);
