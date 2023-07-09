@@ -5,6 +5,7 @@ import com.arun.ag_backend.Dto.StudentDto;
 import com.arun.ag_backend.Dto.TeacherDTO;
 import com.arun.ag_backend.Dto.UserDTO;
 import com.arun.ag_backend.Entities.*;
+import com.arun.ag_backend.Entities.Class;
 import com.arun.ag_backend.JSON.AuthResponse;
 import com.arun.ag_backend.JSON.CustomResponse;
 import com.arun.ag_backend.JWT.JWTService;
@@ -202,7 +203,8 @@ public class Login_SignUp {
                 userService.update_value(true , user1.getEmail());
                 if (role.equals("Student")) {
                     int roll = adminAUserService.findByEmail(user1.getEmail()).get().getRoll();
-                    studentService.save_student(user1, roll);
+                    Class class_id = adminAUserService.findByEmail(user1.getEmail()).get().getAClass() ;
+                    studentService.save_student(user1, roll  , class_id);
                 }
                 if (role.equals("Teacher")) {
                     teacherService.save_teacher(user1);

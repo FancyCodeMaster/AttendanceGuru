@@ -34,12 +34,13 @@ public class StudentService {
     @Autowired
     private OtpRepo otpRepo;
 
-    public void save_student(Users user , int roll) {
+    public void save_student(Users user , int roll , Class aClass) {
 
 
         Student student = new Student();
         student.setRoll(roll);
         student.setUser(user);
+        student.setAClass(aClass);
 
         studentRepo.save(student);
 
