@@ -3,6 +3,7 @@ package com.arun.ag_backend.Filter;
 import com.arun.ag_backend.JWT.JWTService;
 import com.arun.ag_backend.UserDetails.CustomUserDetails;
 import com.arun.ag_backend.UserDetailsService.CustomUserDetailsService;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -64,8 +66,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String username = null;
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            username = jwtService.extractUsername(token);
+            try {
+                username = jwtService.extractUsername(token);
+            } catch (ExpiredJwtException e) {
+                sendInvalidJwtResponse(response, "Expired JWT");
+                return; // Stop further processing
+            }
         }
+
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             CustomUserDetails userDetails = (CustomUserDetails) userDetailsService.loadUserByUsername(username);
@@ -73,11 +81,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
+            }else {
+            // Invalid JWT, send error response
+                sendInvalidJwtResponse(response, "Invalid JWT");
+                return;
+        }
 
 
         }
         filterChain.doFilter(request, response);
     }
-
+        private void sendInvalidJwtResponse(HttpServletResponse response, String message) throws IOException {
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            PrintWriter out = response.getWriter();
+            out.print("{\"message\":\"" + message + "\"}");
+            out.flush();
+        }
 }

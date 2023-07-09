@@ -1,9 +1,6 @@
 package com.arun.ag_backend.Entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +13,7 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "subject_id")
     private int subject_id;
 
     private String name;
@@ -23,4 +21,13 @@ public class Subject {
     private String short_name;
 
     private int credit_hours;
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "name='" + name + '\'' +
+                ", short_name='" + short_name + '\'' +
+                ", credit_hours=" + credit_hours +
+                '}';
+    }
 }
