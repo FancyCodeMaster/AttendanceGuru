@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class Teacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "teacher_id")
+    private int teacher_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
