@@ -1,0 +1,11 @@
+python
+cv2
+mtcnn
+numpy
+matplotlib
+keras_facenet
+keras.models
+sklearn
+pillow
+tensorflow
+scipy
