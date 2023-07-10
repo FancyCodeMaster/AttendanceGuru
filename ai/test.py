@@ -1,3 +1,9 @@
+import face_recog_model
+import cv2
+
+
+
+
 # test model on a random example from the test dataset
 # selection = choice([i for i in range(testX.shape[0])])
 selection = choice([6])
