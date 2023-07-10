@@ -125,6 +125,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import Normalizer
 from sklearn.svm import SVC
+import pickle
 # load dataset
 data = load('faces-embeddings.npz')
 trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
@@ -141,6 +142,9 @@ testy = out_encoder.transform(testy)
 # fit model
 model = SVC(kernel='linear', probability=True)
 model.fit(trainX, trainy)
+
+ 
+
 # predict
 yhat_train = model.predict(trainX)
 yhat_test = model.predict(testX)
@@ -164,6 +168,11 @@ testX_faces = data['arr_2']
 # load face embeddings
 data = load('faces-embeddings.npz')
 trainX, trainy, testX, testy = data['arr_0'], data['arr_1'], data['arr_2'], data['arr_3']
+print("trainX", trainX)
+print("testX", testX)
+print("trainY", trainy)
+print("testY", testy)
+
 # normalize input vectors
 in_encoder = Normalizer(norm='l2')
 trainX = in_encoder.transform(trainX)
@@ -176,9 +185,13 @@ testy = out_encoder.transform(testy)
 # fit model
 model = SVC(kernel='linear', probability=True)
 model.fit(trainX, trainy)
+
+filename = 'face_recog_model.sav'
+pickle.dump(model, open(filename, 'wb'))
+
 # test model on a random example from the test dataset
 # selection = choice([i for i in range(testX.shape[0])])
-selection = choice([1])
+selection = choice([6])
 print(testX.shape[0])
 random_face_pixels = testX_faces[selection]
 random_face_emb = testX[selection]
@@ -187,6 +200,7 @@ random_face_name = out_encoder.inverse_transform([random_face_class])
 # prediction for the face
 samples = expand_dims(random_face_emb, axis=0)
 yhat_class = model.predict(samples)
+print(yhat_class)
 yhat_prob = model.predict_proba(samples)
 # get name
 class_index = yhat_class[0]
@@ -199,3 +213,4 @@ pyplot.imshow(random_face_pixels)
 title = '%s (%.3f)' % (predict_names[0], class_probability)
 pyplot.title(title)
 pyplot.show()
+
