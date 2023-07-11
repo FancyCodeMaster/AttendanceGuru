@@ -27,9 +27,7 @@ public class StudentController {
     @RequestMapping("/classes")
     public ResponseEntity<Object> getClasses(Principal principal)  throws Exception{
 
-//        System.out.println(principal.getName());
-        studentService.get_classes(principal.getName());
-        return ResponseEntity.ok("GO HOme");
+        return ResponseEntity.ok(studentService.get_classes(principal.getName()));
     }
 
 }
