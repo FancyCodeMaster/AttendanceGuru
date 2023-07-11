@@ -1,18 +1,15 @@
 package com.arun.ag_backend.Services;
 
-import com.arun.ag_backend.Dto.TeacherDTO;
 import com.arun.ag_backend.Entities.Class;
 import com.arun.ag_backend.Entities.Subject;
 import com.arun.ag_backend.Entities.Teacher;
 import com.arun.ag_backend.Entities.Users;
 import com.arun.ag_backend.Repo.TeacherRepo;
-import com.arun.ag_backend.Repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TeacherService {
@@ -65,18 +62,16 @@ public class TeacherService {
 
 
 
-    public void get_teacher_subjects(String email){
-        List<Object[]> teacher_subjects =   teacherRepo.findTeacherSubjectsByEmail(email);
-        for (Object[] result : teacher_subjects) {
-            Class classes = (Class) result[0];
-            Subject subject = (Subject) result[1];
-
-            // Access the class and subject properties as needed
-            String classDetails = classes.toString();
-            String subjectName = subject.toString();
-            System.out.println( classDetails + " " + subjectName);
+    public List<Class> get_teacher_classes(String email){
+        List<Class> teacher_subjects =   teacherRepo.findTeacherSubjectsByEmail(email);
 
 
-        }
+        return  teacher_subjects;
+    }
+
+    public Subject get_teacher_subject(String email , int class_id){
+        Subject subjects = teacherRepo.findTeacherSubject(class_id , email);
+        System.out.println(subjects.toString());
+        return  subjects;
     }
 }

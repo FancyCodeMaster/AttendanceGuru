@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 
 @RestController
-@RequestMapping("/user/student")
+@RequestMapping("/student")
 public class StudentController {
 
 //    Principal principal;
@@ -27,7 +27,7 @@ public class StudentController {
     @RequestMapping("/classes")
     public ResponseEntity<Object> getClasses(Principal principal)  throws Exception{
 
-        System.out.println(principal.getName());
+//        System.out.println(principal.getName());
         studentService.get_classes(principal.getName());
         return ResponseEntity.ok("GO HOme");
     }
