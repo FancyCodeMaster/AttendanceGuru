@@ -15,10 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import javax.json.JsonArray;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -46,20 +44,40 @@ public class StudentService {
 
     }
 
-    public void get_classes(String email) throws Exception {
-        String classDetails = " ";
+    public String get_classes(String email) throws Exception {
+
+        Class class1  = new Class();
+        List<Map<String, Object>> jsonList = new ArrayList<>();
         List<Object[]> classAndSubjects = studentRepo.findClassAndSubjectsByEmail(email);
         for (Object[] result : classAndSubjects) {
             Class classes = (Class) result[0];
+            class1 = classes;
             Subject subject = (Subject) result[1];
 
-            // Access the class and subject properties as needed
-            classDetails = classes.toString();
-            String subjectName = subject.getShort_name();
-            System.out.println(" " + subjectName);
+            Map<String, Object> jsonObject = new HashMap<>();
 
+
+            // Access the class and subject properties as needed
+            String subjectName = subject.getShort_name();
+
+            jsonObject.put("subject", subject.getShort_name());
+
+
+
+
+            jsonList.add(jsonObject);
 
         }
-        System.out.println(classDetails);
+        Map<String, Object> classDetails = new HashMap<>();
+        classDetails.put("faculty", class1.getFaculty());
+        classDetails.put("semester", class1.getSemester());
+        classDetails.put("shift", class1.getShift());
+        jsonList.add(classDetails);
+
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(jsonList);
+
+        return json;
     }
 }
